@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppOscar.API", "AppOscar.API\AppOscar.API.csproj", "{2309933C-092C-4D1C-9F26-E31C98534F33}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DE960E4B-56C6-40A2-BD47-045D26FB35E1} = {DE960E4B-56C6-40A2-BD47-045D26FB35E1}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppOscar.Models", "AppOscar.Models\AppOscar.Models.csproj", "{66317AD4-8D34-4236-AC32-E1A8133E7B53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppOscar.Persistence", "AppOscar.Persistence\AppOscar.Persistence.csproj", "{DE960E4B-56C6-40A2-BD47-045D26FB35E1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{66317AD4-8D34-4236-AC32-E1A8133E7B53} = {66317AD4-8D34-4236-AC32-E1A8133E7B53}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2309933C-092C-4D1C-9F26-E31C98534F33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2309933C-092C-4D1C-9F26-E31C98534F33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2309933C-092C-4D1C-9F26-E31C98534F33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2309933C-092C-4D1C-9F26-E31C98534F33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66317AD4-8D34-4236-AC32-E1A8133E7B53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66317AD4-8D34-4236-AC32-E1A8133E7B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66317AD4-8D34-4236-AC32-E1A8133E7B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66317AD4-8D34-4236-AC32-E1A8133E7B53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE960E4B-56C6-40A2-BD47-045D26FB35E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE960E4B-56C6-40A2-BD47-045D26FB35E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE960E4B-56C6-40A2-BD47-045D26FB35E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE960E4B-56C6-40A2-BD47-045D26FB35E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {951D389A-DC7D-46C5-9512-F93C0619E1D5}
+	EndGlobalSection
+EndGlobal
