@@ -6,10 +6,16 @@ namespace AppOscar.Models
 {
     public class Categoria
     {
-        public int idCategoria { get; set; }
+        public Guid IdCategoria { get; set; }
 
-        public string nomeCategoria { get; set; }
+        public string NomeCategoria { get; set; }
 
-        public int pontosCategoria { get; set; }
+        public int PontosCategoria { get; set; }
+
+        public Guid? FilmeVencedorId { get; set; }
+
+        public virtual Filme FilmeVencedor { get; set; }
+
+        public virtual ICollection<Participacao> Participantes { get; set; }
     }
 }
