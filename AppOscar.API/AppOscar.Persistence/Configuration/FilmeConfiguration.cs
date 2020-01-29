@@ -11,8 +11,14 @@ namespace AppOscar.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<Filme> builder)
         {
-            builder.HasKey(p => p.idFilme);
-            builder.Property(p => p.nomeFilme).IsRequired(true);
+            builder.HasKey(p => p.IdFilme);
+
+            builder.Property(p => p.NomeFilme).IsRequired(true);
+
+            builder.HasMany(p => p.Participantes)
+                .WithOne(f => f.Filme)
+                .HasForeignKey(f => f.IdFilme)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

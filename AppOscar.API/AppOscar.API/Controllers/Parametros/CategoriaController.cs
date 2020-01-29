@@ -55,8 +55,8 @@ namespace AppOscar.API.Controllers.Parametros
             {
                 categoria = new Categoria()
                 {
-                    nomeCategoria = novaCategoria.nomeCategoria,
-                    pontosCategoria = novaCategoria.pontosCategoria
+                    NomeCategoria = novaCategoria.NomeCategoria,
+                    PontosCategoria = novaCategoria.PontosCategoria
                 };
 
                 context.Categorias.Add(categoria);
