@@ -1,0 +1,51 @@
+public class Categoria
+    {
+        public Guid Id { get; set; }
+        public string Titulo { get; set; }
+        // Chave do para o filme vencedor. Note o NULLABLE pois o vencedor não será cadastrado junto com a categoria!
+        public Guid? FilmeVencedorId { get; set; }
+        // Esta propriedade é apenas para navegação (para você poder consultar, por ex, quais categorias um filme venceu sem carregar os filmes)
+        public virtual Filme FilmeVencedor { get; set; }
+        // Esta propriedade é o N:1 de Participacao, a relação que surge da descontrução do N:N de Filmes:Categorias
+        public virtual ICollection<Participacao> Participantes { get; set; } = new HashSet<Participacao>(); // <--- É sempre boa prática inicializar suas Collections, para não ter erros de NullArgument ou similares
+        // Insira suas outras propriedades aqui...
+    }
+    
+    public class Filme
+    {
+        public Guid Id { get; set; }
+        public string Noem { get; set; }
+        // ... suas outras propriedades aqui
+        // Esta propriedade é o N:1 de Participacao, a relação que surge da descontrução do N:N de Filmes:Categorias
+        public virtual ICollection<Participacao> Participacoes { get; set; } = new HashSet<Participacao>(); // <--- É sempre boa prática inicializar suas Collections, para não ter erros de NullArgument ou similares
+        // Esta propriedade é para navegação, para que seja possível carregar através do filme apenas as Categorias que ele venceu.
+        public virtual ICollection<Categoria> CategoriasVencidas {get; set;} = new HashSet<Categoria>();
+    }
+    
+    
+    public class Participacao
+    {
+        public Guid Id { get; set; }
+        public Guid IdCategoria { get; set; }
+        public virtual Categoria Categoria { get; set; }
+        public Guid IdFilme { get; set; }
+        public virtual Filme Filme { get; set; }    
+    }
+    
+    
+    // Consultar as Categorias em que um Filme Participa
+var filmeComCategoriasParticipantes = context.Filmes.Include(f => f.Participacoes).ThenInclude(p => p.Categoria).Where(f => /* Critério para filtrar seu filme aqui */)
+
+// Adicionar uma nova Participação de um filme em uma Categoria
+// Escondendo os Update e SaveChangesAsync por brevidade
+// 1: Adicionar um Participacao ao Filme
+var filme = new Filme();
+var categoria = new Categoria();
+filme.Participacoes.Add(new Participacao{ Filme = file, Categoria = categoria});
+// 2: Adicionar um Participacao à Categoria
+var filme = new Filme();
+var categoria = new Categoria();
+categoria.Participantes.Add(new Participacao{Filme = file, Categoria = categoria});
+/// 3: Menos recomendado, masss... expor o Partipacao para o Context e adicionar direto nele
+var participacao = new Participacao{Filme = new Filme(), Categoria = new Categoria()};
+context.Participacoes.Add(participacao);
