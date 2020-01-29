@@ -24,6 +24,12 @@ namespace AppOscar.API.Extensions
 
             context.Usuarios.AddRange(usuariosFake);
             await context.SaveChangesAsync(ct);
+
+            //if (context.Filmes.Any())
+            //    return;
+
+            //var filmesFake = new Faker<Filme>()
+            //    .RuleFor(p => p.nomeFilme, f => f.Name.FullName());
         }
     }
 }
