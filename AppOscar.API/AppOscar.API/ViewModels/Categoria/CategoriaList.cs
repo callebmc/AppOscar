@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AppOscar.API.ViewModels.Filme
 {
     public class CategoriaList
     {
-        public Guid Id;
+        public Guid Id { get; set; }
 
-        public string NomeCategoria;
+        public string NomeCategoria { get; set; }
 
-        public int PontosCategoria;
+        public int PontosCategoria { get; set; }
     }
 }

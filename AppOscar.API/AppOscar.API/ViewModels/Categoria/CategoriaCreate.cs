@@ -1,24 +1,16 @@
-﻿using System;
-
-namespace AppOscar.API.ViewModels.Categoria
+﻿namespace AppOscar.API.ViewModels.Categoria
 {
     public class CategoriaCreate
     {
         /// <summary>
-        /// Identificador unico de Categoria
-        /// </summary>
-        public Guid Id;
-
-
-        /// <summary>
         /// Nome da Categoria
         /// </summary>
-        public string NomeCategoria;
+        public string NomeCategoria { get; set; }
 
 
         /// <summary>
         /// Pontos que a categoria vale
         /// </summary>
-        public int PontosCategoria;
+        public int PontosCategoria { get; set; }
     }
 }
