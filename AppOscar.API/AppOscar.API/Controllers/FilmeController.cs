@@ -44,7 +44,7 @@ namespace AppOscar.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> CreateFilme([FromBody]Filme filme )
+        public async Task<IActionResult> CreateFilme([FromBody]FilmeCreate filme )
         {
             FilmeCreateCommand novoFilme = new FilmeCreateCommand(){ IdFilme = filme.IdFilme, NomeFilme = filme.NomeFilme };
 
