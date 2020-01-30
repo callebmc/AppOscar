@@ -17,11 +17,15 @@ namespace AppOscar.Persistence
         public DbSet<Filme> Filmes { get; set; }
 
         public DbSet<Categoria> Categorias { get; set; }
+
+        public DbSet<Participacao> Participacoes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(UserConfiguration)));
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(FilmeConfiguration)));
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(CategoriaConfiguration)));
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(ParticipacaoConfiguration)));
             base.OnModelCreating(modelBuilder);
         }
     }
