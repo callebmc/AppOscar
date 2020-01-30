@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AppOscar.Models
 {
@@ -37,6 +36,6 @@ namespace AppOscar.Models
         /// <summary>
         /// Referência para Participantes
         /// </summary>
-        public virtual ICollection<Participacao> Participantes { get; set; }
+        public virtual ICollection<Participacao> Participantes { get; set; } = new HashSet<Participacao>();
     }
 }
