@@ -29,5 +29,18 @@ namespace AppOscar.API.Controllers.Participacao
 
             return Ok(result.IdParticipacao);
         }
+
+        [HttpGet("{id}", Name="ListPorCategoria")]
+        public async Task<IActionResult> ListPorCategoria (string idRota)
+        {
+            if (idRota is null)
+                return BadRequest();
+
+            ListParticipacaoPorCategoria teste = new ListParticipacaoPorCategoria() { IdCategoria = Guid.Parse(idRota) };
+
+            var result = await mediator.Send(teste);
+
+            return new OkObjectResult(result);
+        }
     }
 }
