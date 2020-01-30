@@ -13,7 +13,6 @@ namespace AppOscar.API.Controllers.Parametros
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors]
     public class CategoriaController : ControllerBase
     {
         private readonly AppOscarContext context;

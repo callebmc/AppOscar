@@ -77,6 +77,8 @@ namespace AppOscar.API
                 }
             }
 
+            app.UseCors();
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("swagger/v1/swagger.json", "Oscar API v1");

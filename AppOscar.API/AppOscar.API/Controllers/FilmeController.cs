@@ -13,7 +13,6 @@ namespace AppOscar.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors]
     public class FilmeController : ControllerBase
     {
 
