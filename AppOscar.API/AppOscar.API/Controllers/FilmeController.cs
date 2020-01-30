@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AppOscar.API.Domain;
 using AppOscar.API.Repositories;
 using AppOscar.API.ViewModels.Filme;
-using AppOscar.Models;
-using AppOscar.Persistence;
 using MediatR;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace AppOscar.API.Controllers
 {
