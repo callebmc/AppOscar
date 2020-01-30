@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AppOscar.API.Domain;
+using AppOscar.API.Repositories;
+using AppOscar.API.ViewModels.Filme;
 using AppOscar.Models;
 using AppOscar.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,56 +19,37 @@ namespace AppOscar.API.Controllers
     [ApiController]
     public class FilmeController : ControllerBase
     {
-
+        private readonly IMediator _mediator;
         private readonly AppOscarContext context;
+        private readonly IFilmeRepository _filmeRepository;
 
-        public FilmeController(AppOscarContext context)
+        public FilmeController(AppOscarContext context, IMediator mediator, IFilmeRepository filmeRepository)
         {
             this.context = context ?? throw new System.ArgumentNullException(nameof(context));
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _filmeRepository = filmeRepository;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Filme>> GetFilmes()
+        public async Task<IActionResult> GetAllFilmes()
         {
-            List<Filme> filmes;
 
-            try
-            {
-                filmes = await context.Filmes.ToListAsync();
-                if (filmes == null)
-                    return new NotFoundResult();
-                return new OkObjectResult(filmes);
-            }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            var filmes = await _filmeRepository.GetAllFilmes();
+
+            return Ok(filmes);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Filme>> CreateCategoria([FromBody] Filme novoFilme)
+        public async Task<IActionResult> CreateFilme([FromBody]Filme filme )
         {
-            Filme filme;
+            FilmeCreateCommand novoFilme = new FilmeCreateCommand(){ IdFilme = filme.IdFilme, NomeFilme = filme.NomeFilme };
 
-            try
-            {
-                filme = new Filme()
-                {
-                    NomeFilme = novoFilme.NomeFilme,
-                };
-
-                context.Filmes.Add(filme);
-                await context.SaveChangesAsync();
-                return NoContent();
-            }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            var response = await _mediator.Send(novoFilme);
+            return Ok(response);
         }
     }
 }

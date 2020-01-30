@@ -1,5 +1,7 @@
 using AppOscar.API.Extensions;
+using AppOscar.API.Repositories;
 using AppOscar.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace AppOscar.API
 {
@@ -36,6 +39,8 @@ namespace AppOscar.API
 
             services.AddDbContext<AppOscarContext>(opt => opt.UseInMemoryDatabase("AppOscarDB"));
 
+            services.AddSingleton<IFilmeRepository, FilmeRepository>();
+            services.AddMediatR(typeof(Startup));
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -77,7 +82,7 @@ namespace AppOscar.API
                 }
             }
 
-            app.UseCors();
+            app.UseCors((x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
             app.UseSwaggerUI(c =>
             {

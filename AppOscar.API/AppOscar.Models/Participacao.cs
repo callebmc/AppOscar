@@ -10,7 +10,7 @@ namespace AppOscar.Models
         /// <summary>
         /// Identificador unico da Participação
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Identificador unico para Categorias
