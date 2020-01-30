@@ -20,12 +20,10 @@ namespace AppOscar.API.Controllers
     public class FilmeController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly AppOscarContext context;
         private readonly IFilmeRepository _filmeRepository;
 
-        public FilmeController(AppOscarContext context, IMediator mediator, IFilmeRepository filmeRepository)
+        public FilmeController(IMediator mediator, IFilmeRepository filmeRepository)
         {
-            this.context = context ?? throw new System.ArgumentNullException(nameof(context));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _filmeRepository = filmeRepository;
         }

@@ -1,4 +1,8 @@
-﻿using AppOscar.Models;
+﻿using AppOscar.API.ViewModels.Filme;
+using AppOscar.Models;
+using AppOscar.Persistence;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,26 +13,45 @@ namespace AppOscar.API.Repositories
     public class FilmeRepository : IFilmeRepository
     {
         public List<Filme> Filmes { get; }
-        
-        public FilmeRepository()
+        private readonly AppOscarContext context;
+
+        public FilmeRepository(AppOscarContext context)
         {
+            this.context = context ?? throw new System.ArgumentNullException(nameof(context));
             Filmes = new List<Filme>();
         }
 
         public async Task Delete(Guid Id)
         {
-            int index = Filmes.FindIndex(m => m.IdFilme == Id);
-            await Task.Run(() => Filmes.RemoveAt(index));
+            var filme = await context.Filmes.FindAsync(Id);
+            context.Filmes.Remove(filme);
+
+            await context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Filme>> GetAllFilmes()
         {
-            return await Task.FromResult(Filmes);
+            List<Filme> filmes;
+
+            filmes = await context.Filmes.ToListAsync();
+            if (filmes == null)
+                await Task.FromResult("Nenhum filme Cadastrado");
+            return await Task.FromResult(filmes);
+            
         }
 
-        public async Task Save(Filme filme)
+        public async Task Save(FilmeCreate filme)
         {
-            await Task.Run(() => Filmes.Add(filme));
+            Filme novoFilme;
+
+            novoFilme = new Filme
+            {
+                IdFilme = filme.IdFilme,
+                NomeFilme = filme.NomeFilme
+            };
+
+            context.Filmes.Add(novoFilme);
+            await context.SaveChangesAsync();
         }
 
         public async Task Update(Guid Id, Filme filme)
