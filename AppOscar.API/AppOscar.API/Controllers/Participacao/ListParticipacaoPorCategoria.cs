@@ -44,8 +44,19 @@ namespace AppOscar.API.Controllers.Participacao
 
         private async Task<ListParticipacaoResult> ListParticipacaoPorCategoriaInternalAsync(Guid idCategoria, CancellationToken cancellationToken)
         {
-            var categoria = await context.Participacoes.Include(c => c.Categoria).Where(c => c.IdCategoria == idCategoria).Include(f => f.Filme).ToListAsync();
-            if(categoria is null)
+            var categoria = await context.Categorias.Include(c => c.Participantes)
+                .ThenInclude(f => f.Filme)
+                .SingleOrDefaultAsync(c => c.IdCategoria == idCategoria);
+
+
+            var catResult = new Categoria()
+            {
+                NomeCategoria = categoria.NomeCategoria,
+                PontosCategoria = categoria.PontosCategoria,
+                Participantes = categoria.Participantes
+            };
+
+            if (categoria is null)
                 throw new KeyNotFoundException("Categoria não encontrada");
 
             return new ListParticipacaoResult { DthCriacao = DateTime.Now};
