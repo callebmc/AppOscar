@@ -1,16 +1,14 @@
 ﻿using AppOscar.API.Domain;
 using AppOscar.API.Repositories;
-using AppOscar.API.ViewModels.Categoria;
+using AppOscar.Models;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace AppOscar.API.Handlers
 {
-    public class CategoriaHandler: IRequestHandler<CategoriaCreateCommand, string>
+    public class CategoriaHandler : IRequestHandler<CategoriaCreateCommand, string>
     {
         private readonly ICategoriaRepository _categoriaRepository;
 
@@ -21,7 +19,7 @@ namespace AppOscar.API.Handlers
 
         public async Task<string> Handle(CategoriaCreateCommand request, CancellationToken ct)
         {
-            var categoria = new CategoriaCreate { Id = request.Id, NomeCategoria= request.NomeCategoria, PontosCategoria = request.PontosCategoria};
+            var categoria = new Categoria { NomeCategoria = request.NomeCategoria, PontosCategoria = request.PontosCategoria, IdCategoria = Guid.NewGuid() };
             await _categoriaRepository.Save(categoria);
 
             return await Task.FromResult("Categoria Cadastrada");

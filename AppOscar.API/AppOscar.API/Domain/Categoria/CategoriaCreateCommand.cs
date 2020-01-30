@@ -5,10 +5,18 @@ namespace AppOscar.API.Domain
 {
     public class CategoriaCreateCommand : IRequest<string>
     {
-        public Guid Id;
+        public string NomeCategoria { get; }
 
-        public string NomeCategoria;
+        public int PontosCategoria { get; }
 
-        public int PontosCategoria;
+        public CategoriaCreateCommand(string nomeCategoria, int pontosCategoria)
+        {
+            if (string.IsNullOrWhiteSpace(nomeCategoria))
+            {
+                throw new ArgumentException("message", nameof(nomeCategoria));
+            }
+            NomeCategoria = nomeCategoria;
+            PontosCategoria = pontosCategoria;
+        }
     }
 }
