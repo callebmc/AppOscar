@@ -1,10 +1,8 @@
-﻿using AppOscar.API.ViewModels.Categoria;
-using AppOscar.Models;
+﻿using AppOscar.Models;
 using AppOscar.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AppOscar.API.Repositories
@@ -35,18 +33,9 @@ namespace AppOscar.API.Repositories
             return await Task.FromResult(categorias);
         }
 
-        public async Task Save(CategoriaCreate categoria)
+        public async Task Save(Categoria categoria)
         {
-            Categoria novaCategoria;
-
-            novaCategoria = new Categoria
-            {
-                IdCategoria = categoria.Id,
-                NomeCategoria = categoria.NomeCategoria,
-                PontosCategoria = categoria.PontosCategoria
-            };
-
-            context.Categorias.Add(novaCategoria);
+            context.Categorias.Add(categoria);
             await context.SaveChangesAsync();
         }
 

@@ -9,7 +9,7 @@ namespace AppOscar.API.Repositories
 {
     public interface ICategoriaRepository
     {
-        Task Save(CategoriaCreate categoria);
+        Task Save(Categoria categoria);
         Task Update(Guid Id, Categoria categoria);
         Task Delete(Guid Id);
         Task<IEnumerable<Categoria>> GetAllCategorias();
