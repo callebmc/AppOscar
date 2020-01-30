@@ -40,6 +40,7 @@ namespace AppOscar.API
             services.AddDbContext<AppOscarContext>(opt => opt.UseInMemoryDatabase("AppOscarDB"));
 
             services.AddScoped<IFilmeRepository, FilmeRepository>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddMediatR(typeof(Startup));
 
             services.Configure<CookiePolicyOptions>(options =>

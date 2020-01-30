@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AppOscar.Models;
-using AppOscar.Persistence;
-using Microsoft.AspNetCore.Cors;
+﻿using System.Threading.Tasks;
+using AppOscar.API.Domain;
+using AppOscar.API.Repositories;
+using AppOscar.API.ViewModels.Categoria;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace AppOscar.API.Controllers.Parametros
 {
@@ -15,57 +12,35 @@ namespace AppOscar.API.Controllers.Parametros
     [ApiController]
     public class CategoriaController : ControllerBase
     {
-        private readonly AppOscarContext context;
+        private readonly IMediator _mediator;
+        private readonly ICategoriaRepository _categoriaRepository;
 
-        public CategoriaController(AppOscarContext context)
+        public CategoriaController(IMediator mediator, ICategoriaRepository categoriaRepository)
         {
-            this.context = context ?? throw new System.ArgumentNullException(nameof(context));
+            _mediator = mediator;
+            _categoriaRepository = categoriaRepository;
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Categoria>> GetCategorias()
+        public async Task<IActionResult> GetAllCategorias()
         {
-            List<Categoria> categorias;
+            var categorias = await _categoriaRepository.GetAllCategorias();
 
-            try
-            {
-                categorias = await context.Categorias.ToListAsync();
-                if (categorias == null)
-                    return new NotFoundResult();
-                return new OkObjectResult(categorias);
-            }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            return Ok(categorias);
 
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Categoria>> CreateCategoria([FromBody] Categoria novaCategoria)
+        public async Task<IActionResult> CreateCategoria([FromBody]CategoriaCreate novaCategoria)
         {
-            Categoria categoria;
+            CategoriaCreateCommand categoriaCreate = new CategoriaCreateCommand() { Id = novaCategoria.Id, NomeCategoria = novaCategoria.NomeCategoria, PontosCategoria = novaCategoria.PontosCategoria };
 
-            try
-            {
-                categoria = new Categoria()
-                {
-                    NomeCategoria = novaCategoria.NomeCategoria,
-                    PontosCategoria = novaCategoria.PontosCategoria
-                };
-
-                context.Categorias.Add(categoria);
-                await context.SaveChangesAsync();
-                return NoContent();
-            }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+            var response = await _mediator.Send(categoriaCreate);
+            return Ok(response);
         }
     }
 }
