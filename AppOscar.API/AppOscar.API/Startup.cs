@@ -58,13 +58,14 @@ namespace AppOscar.API
                 {
                     opt.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
                     opt.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                    opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 })
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 
             services.AddSwaggerGen(c =>
             {
                 // TODO: Variar esta versão conforme versão do assembly da API.
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AppOscar API", Version = "v1" }); 
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AppOscar API", Version = "v1" });
             });
         }
 
