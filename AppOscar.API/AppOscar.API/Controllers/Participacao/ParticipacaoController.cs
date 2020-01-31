@@ -1,6 +1,9 @@
-﻿using MediatR;
+﻿using AppOscar.Models;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AppOscar.API.Controllers.Participacao
@@ -30,17 +33,27 @@ namespace AppOscar.API.Controllers.Participacao
             return Ok(result.IdParticipacao);
         }
 
-        [HttpGet("{id}", Name="ListPorCategoria")]
-        public async Task<IActionResult> ListPorCategoria (string idRota)
+        [HttpGet("by-categoria/{id}", Name = "ListPorCategoria")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Filme>))]  // TODO: O Swagger se perde aqui por causa do ciclico, arrumar
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ListPorCategoria([FromRoute] Guid id)
         {
-            if (idRota is null)
-                return BadRequest();
+            ListFilmesPorCategoria request = new ListFilmesPorCategoria { CategoriaId = id };
 
-            ListParticipacaoPorCategoria teste = new ListParticipacaoPorCategoria() { IdCategoria = Guid.Parse(idRota) };
+            try
+            {
+                var result = await mediator.Send(request);
 
-            var result = await mediator.Send(teste);
-
-            return new OkObjectResult(result);
+                return new OkObjectResult(result.Filmes);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
