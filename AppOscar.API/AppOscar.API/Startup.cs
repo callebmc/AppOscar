@@ -67,6 +67,7 @@ namespace AppOscar.API
                 // TODO: Variar esta versão conforme versão do assembly da API.
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AppOscar API", Version = "v1" });
             });
+            services.AddSwaggerGenNewtonsoftSupport();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
