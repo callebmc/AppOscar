@@ -34,7 +34,8 @@ namespace AppOscar.API.Controllers.Participacao
         }
 
         [HttpGet("by-categoria/{id}", Name = "ListPorCategoria")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Filme>))]  // TODO: O Swagger se perde aqui por causa do ciclico, arrumar
+        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Filme>))]  // TODO: O Swagger se perde aqui por causa do ciclico, aparentemente é um bug do SwaggerUi (Javascript, nem o do DOTNET) e esta sendo investigado!
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ListPorCategoria([FromRoute] Guid id)
         {
