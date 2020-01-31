@@ -9,10 +9,10 @@ namespace AppOscar.API.Extensions
 {
     public static class AppOscarContextExtension
     {
-        public static Task SeedData(this AppOscarContext context, int qtdeRegistros = 10, CancellationToken ct = default)
+        public static void SeedData(this AppOscarContext context, int qtdeRegistros = 10)
         {
             if (context.Usuarios.Any())
-                return Task.FromCanceled(ct);
+                return;
 
             var usuariosFake = new Faker<User>("pt_BR")
                 .RuleFor(p => p.nomeUsuario, f => f.Name.FullName())
@@ -37,9 +37,7 @@ namespace AppOscar.API.Extensions
 
             context.Categorias.AddRange(categoriasFake);
 
-            context.SaveChangesAsync(ct);
-
-            return Task.CompletedTask;
+            context.SaveChanges();
         }
     }
 }
