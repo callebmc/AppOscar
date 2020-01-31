@@ -1,6 +1,9 @@
-﻿using MediatR;
+﻿using AppOscar.Models;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AppOscar.API.Controllers.Participacao
@@ -30,17 +33,51 @@ namespace AppOscar.API.Controllers.Participacao
             return Ok(result.IdParticipacao);
         }
 
-        [HttpGet("{id}", Name="ListPorCategoria")]
-        public async Task<IActionResult> ListPorCategoria (string idRota)
+        [HttpGet("by-categoria/{id}", Name = "ListPorCategoria")]
+        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Filme>))]  // TODO: O Swagger se perde aqui por causa do ciclico, aparentemente é um bug do SwaggerUi (Javascript, nem o do DOTNET) e esta sendo investigado!
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ListPorCategoria([FromRoute] Guid id)
         {
-            if (idRota is null)
-                return BadRequest();
+            ListFilmesPorCategoria request = new ListFilmesPorCategoria { CategoriaId = id };
 
-            ListParticipacaoPorCategoria teste = new ListParticipacaoPorCategoria() { IdCategoria = Guid.Parse(idRota) };
+            try
+            {
+                var result = await mediator.Send(request);
 
-            var result = await mediator.Send(teste);
+                return new OkObjectResult(result.Filmes);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
-            return new OkObjectResult(result);
+        [HttpGet("by-filme/{id}", Name = "ListPorFilme")]
+        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Filme>))]  // TODO: O Swagger se perde aqui por causa do ciclico, aparentemente é um bug do SwaggerUi (Javascript, nem o do DOTNET) e esta sendo investigado!
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ListPorFilme([FromRoute] Guid id)
+        {
+            ListCategoriasPorFilme request = new ListCategoriasPorFilme { FilmeId = id };
+
+            try 
+            {
+                var result = await mediator.Send(request);
+                return new OkObjectResult(result.Categorias);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
