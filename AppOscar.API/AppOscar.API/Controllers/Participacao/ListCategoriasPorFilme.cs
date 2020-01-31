@@ -50,6 +50,7 @@ namespace AppOscar.API.Controllers.Participacao
             var filmes = await context.Filmes
                 .AsNoTracking()
                 .Include(c => c.Participantes)
+                    .ThenInclude(p => p.Categoria)
                 .SingleOrDefaultAsync(c => c.IdFilme == filmeId, ct);
 
             if (filmes is null)
