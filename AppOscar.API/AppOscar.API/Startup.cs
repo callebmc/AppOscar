@@ -74,7 +74,7 @@ namespace AppOscar.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseSwagger();
 
@@ -84,7 +84,7 @@ namespace AppOscar.API
                 using (var serviceScope = app.ApplicationServices.CreateScope())
                 {
                     var appContext = serviceScope.ServiceProvider.GetService<AppOscarContext>();
-                    await appContext.SeedData();
+                    appContext.SeedData();
                 }
             }
 
