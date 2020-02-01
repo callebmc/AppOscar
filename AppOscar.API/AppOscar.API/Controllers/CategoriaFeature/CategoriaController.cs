@@ -1,8 +1,4 @@
 ﻿using AppOscar.API.Controllers.CategoriaFeature;
-using AppOscar.API.Domain;
-using AppOscar.API.Repositories;
-using AppOscar.API.ViewModels.Categoria;
-using AppOscar.API.ViewModels.Filme;
 using AppOscar.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -17,12 +13,10 @@ namespace AppOscar.API.Controllers.Parametros
     public class CategoriaController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly ICategoriaRepository _categoriaRepository;
 
-        public CategoriaController(IMediator mediator, ICategoriaRepository categoriaRepository)
+        public CategoriaController(IMediator mediator)
         {
-            _mediator = mediator;
-            _categoriaRepository = categoriaRepository;
+            _mediator = mediator ?? throw new System.ArgumentNullException(nameof(mediator));
         }
 
         [HttpGet]
