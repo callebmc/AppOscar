@@ -21,13 +21,13 @@ namespace AppOscar.API.Controllers.Parametros
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Categoria>))]
+        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Categoria>))] //TODO: Após correção do SwaggerUI, reabilitar.
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllCategorias()
         {
             var categorias = await _mediator.Send(new ListAllCategorias());
 
-            return Ok(categorias);
-
+            return Ok(categorias.Categorias);
         }
 
         [HttpPost]

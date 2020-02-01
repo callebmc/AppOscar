@@ -50,6 +50,7 @@ namespace AppOscar.API.Controllers.CategoriaFeature
 
             var categoriasResult = categorias.Select(c => new Categoria
             {
+                IdCategoria = c.IdCategoria,
                 NomeCategoria = c.NomeCategoria,
                 PontosCategoria = c.PontosCategoria
             });
