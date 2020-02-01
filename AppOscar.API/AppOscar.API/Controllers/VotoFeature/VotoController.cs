@@ -43,7 +43,8 @@ namespace AppOscar.API.Controllers.VotoFeature
             }
             else if (hasUsuario)
             {
-                throw new NotImplementedException();
+                var result = await mediator.Send(new ListVotosPorUsuario(usuario));
+                return Ok(result.Votos);
             }
             else
             {
