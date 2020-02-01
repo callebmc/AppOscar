@@ -1,9 +1,6 @@
 ﻿using AppOscar.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AppOscar.Persistence.Configuration
 {
@@ -24,6 +21,10 @@ namespace AppOscar.Persistence.Configuration
                 .WithMany(a => a.Participantes)
                 .HasForeignKey(a => a.IdFilme)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.HasMany(p => p.Votos)
+                .WithOne(v => v.Participacao)
+                .HasForeignKey(v => v.IdParticipacao);
         }
     }
 }
