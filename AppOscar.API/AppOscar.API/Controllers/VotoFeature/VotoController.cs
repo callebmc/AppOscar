@@ -18,10 +18,10 @@ namespace AppOscar.API.Controllers.VotoFeature
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListVotos([FromQuery] string categoria, [FromQuery] string filme, [FromQuery] string usuario)
+        public async Task<IActionResult> ListVotos([FromQuery] Guid? categoria, [FromQuery] Guid? filme, [FromQuery] string usuario)
         {
-            var hasCategoria = !string.IsNullOrWhiteSpace(categoria);
-            var hasFilme = !string.IsNullOrWhiteSpace(filme);
+            var hasCategoria = !categoria.HasValue;
+            var hasFilme = !filme.HasValue;
             var hasUsuario = !string.IsNullOrWhiteSpace(usuario);
 
             if (hasCategoria)
