@@ -13,7 +13,7 @@ namespace AppOscar.API.Controllers.FilmeFeature
 {
     public class ListAllFilme : IRequest<ListAllFilmeResult>
     {
-         
+
     }
 
     public class ListAllFilmeResult
@@ -39,7 +39,7 @@ namespace AppOscar.API.Controllers.FilmeFeature
 
         public Task<ListAllFilmeResult> Handle(ListAllFilme request, CancellationToken cancellationToken)
         {
-            if(request is null)
+            if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
             return ListAllFilmeInternalAsync(cancellationToken);
@@ -52,8 +52,9 @@ namespace AppOscar.API.Controllers.FilmeFeature
             var filmesResult = filmes
                 .Select(c => new Filme
                 {
+                    IdFilme = c.IdFilme,
                     NomeFilme = c.NomeFilme
-                }); 
+                });
 
             return new ListAllFilmeResult(filmesResult);
 

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using AppOscar.API.Controllers.FilmeFeature;
+﻿using AppOscar.API.Controllers.FilmeFeature;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace AppOscar.API.Controllers
 {
@@ -26,11 +26,11 @@ namespace AppOscar.API.Controllers
 
             var filmes = await _mediator.Send(new ListAllFilme());
 
-            return Ok(filmes);
+            return Ok(filmes.Filmes);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateFilme([FromBody]CreateFilme request )
+        public async Task<IActionResult> CreateFilme([FromBody]CreateFilme request)
         {
             if (request is null)
                 return BadRequest();
