@@ -21,16 +21,16 @@ namespace AppOscar.API.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        //[HttpGet]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<IActionResult> GetAllFilmes()
-        //{
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllFilmes()
+        {
 
-        //    //var filmes = await _filmeRepository.GetAllFilmes();
+            var filmes = await _mediator.Send(new ListAllFilme());
 
-        //    //return Ok(filmes);
-        //}
+            return Ok(filmes);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateFilme([FromBody]CreateFilme request )

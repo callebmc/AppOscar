@@ -45,12 +45,18 @@ namespace AppOscar.API.Controllers.FilmeFeature
             return ListAllFilmeInternalAsync(cancellationToken);
         }
 
-        //private Task<ListAllFilmeResult> ListAllFilmeInternalAsync(CancellationToken ct)
-        //{
-        //    var filmes = context.Filmes.Include(f => f.NomeFilme).ToListAsync();
+        private async Task<ListAllFilmeResult> ListAllFilmeInternalAsync(CancellationToken ct)
+        {
+            var filmes = await context.Filmes.ToListAsync(ct);
 
-        //    var filmesReturn = filmes.Select()
+            var filmesResult = filmes
+                .Select(c => new Filme
+                {
+                    NomeFilme = c.NomeFilme
+                }); 
 
-        //}
+            return new ListAllFilmeResult(filmesResult);
+
+        }
     }
 }
