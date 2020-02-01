@@ -19,6 +19,8 @@ namespace AppOscar.Persistence
 
         public DbSet<Participacao> Participacoes { get; set; }
 
+        public DbSet<Voto> Votos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(UserConfiguration)));
