@@ -26,7 +26,16 @@ namespace AppOscar.API.Controllers.VotoFeature
 
             if (hasCategoria)
             {
-                throw new NotImplementedException();
+                try
+                {
+                    var result = await mediator.Send(new ListVotosPorCategoria(categoria.Value));
+                    return Ok(result.Votos);
+                }
+                catch (KeyNotFoundException)
+                {
+                    return NotFound();
+                }
+
             }
             else if (hasFilme)
             {
