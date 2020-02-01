@@ -14,5 +14,10 @@ namespace AppOscar.Models
         public int IdParticipacao { get; set; }
 
         public virtual Participacao Participacao { get; set; }
+
+        /// <summary>
+        /// Referência a um usuário do sistema.
+        /// </summary>
+        public string IdUsuario { get; set; }
     }
 }

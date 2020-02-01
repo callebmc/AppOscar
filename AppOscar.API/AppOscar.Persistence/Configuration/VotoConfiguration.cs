@@ -13,6 +13,7 @@ namespace AppOscar.Persistence.Configuration
 
             builder.Property(v => v.DthCriacao).IsRequired(true);
             builder.Property(v => v.IdParticipacao).IsRequired(true);
+            builder.Property(v => v.IdUsuario).IsRequired(true);
 
             builder.HasOne(v => v.Participacao)
                 .WithMany(p => p.Votos)
