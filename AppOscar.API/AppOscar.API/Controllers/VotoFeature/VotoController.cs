@@ -17,6 +17,32 @@ namespace AppOscar.API.Controllers.VotoFeature
             this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ListVotos([FromQuery] string categoria, [FromQuery] string filme, [FromQuery] string usuario)
+        {
+            var hasCategoria = !string.IsNullOrWhiteSpace(categoria);
+            var hasFilme = !string.IsNullOrWhiteSpace(filme);
+            var hasUsuario = !string.IsNullOrWhiteSpace(usuario);
+
+            if (hasCategoria)
+            {
+                throw new NotImplementedException();
+            }
+            else if (hasFilme)
+            {
+                throw new NotImplementedException();
+            }
+            else if (hasUsuario)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                var result = await mediator.Send(new ListVotos());
+                return Ok(result.Votos);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateVoto([FromBody] CreateVoto votoCommand)
         {
