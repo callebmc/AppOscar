@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AppOscar.API.Controllers.FilmeFeature;
 using AppOscar.API.Domain;
 using AppOscar.API.Repositories;
 using AppOscar.API.ViewModels.Filme;
@@ -14,12 +15,10 @@ namespace AppOscar.API.Controllers
     public class FilmeController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IFilmeRepository _filmeRepository;
 
-        public FilmeController(IMediator mediator, IFilmeRepository filmeRepository)
+        public FilmeController(IMediator mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-            _filmeRepository = filmeRepository;
         }
 
         [HttpGet]
@@ -28,20 +27,23 @@ namespace AppOscar.API.Controllers
         public async Task<IActionResult> GetAllFilmes()
         {
 
-            var filmes = await _filmeRepository.GetAllFilmes();
+            var filmes = await _mediator.Send(new ListAllFilme());
 
             return Ok(filmes);
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> CreateFilme([FromBody]FilmeCreate filme )
+        public async Task<IActionResult> CreateFilme([FromBody]CreateFilme request )
         {
-            FilmeCreateCommand novoFilme = new FilmeCreateCommand(){ IdFilme = filme.IdFilme, NomeFilme = filme.NomeFilme };
+            if (request is null)
+                return BadRequest();
 
-            var response = await _mediator.Send(novoFilme);
-            return Ok(response);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _mediator.Send(request);
+
+            return Ok(result.IdFilme);
         }
     }
 }
