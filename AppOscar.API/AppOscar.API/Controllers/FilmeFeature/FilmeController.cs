@@ -16,7 +16,7 @@ namespace AppOscar.API.Controllers
     {
         private readonly IMediator _mediator;
 
-        public FilmeController(IMediator mediator, IFilmeRepository filmeRepository)
+        public FilmeController(IMediator mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
