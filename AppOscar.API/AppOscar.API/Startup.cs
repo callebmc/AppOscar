@@ -1,5 +1,4 @@
 using AppOscar.API.Extensions;
-using AppOscar.API.Repositories;
 using AppOscar.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -42,7 +41,6 @@ namespace AppOscar.API
 
             services.AddDbContext<AppOscarContext>(opt => opt.UseInMemoryDatabase("AppOscarDB"));
 
-            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddMediatR(typeof(Startup));
 
             services.Configure<CookiePolicyOptions>(options =>

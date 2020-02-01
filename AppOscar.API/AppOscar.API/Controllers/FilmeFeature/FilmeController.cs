@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AppOscar.API.Controllers.FilmeFeature;
-using AppOscar.API.Domain;
-using AppOscar.API.Repositories;
-using AppOscar.API.ViewModels.Filme;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
