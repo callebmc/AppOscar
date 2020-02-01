@@ -1,7 +1,9 @@
-﻿using AppOscar.Persistence;
+﻿using AppOscar.Models;
+using AppOscar.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -32,7 +34,7 @@ namespace AppOscar.API.Controllers.VotoFeature
         private async Task<ListVotosResult> ListVotosInternalAsync(CancellationToken cancellationToken)
         {
             var votos = await context.Votos.ToListAsync(cancellationToken);
-            return new ListVotosResult(votos);
+            return new ListVotosResult(votos.Select(v => new Voto { Id = v.Id, DthCriacao = v.DthCriacao, IdParticipacao = v.IdParticipacao, IdUsuario = v.IdUsuario }));
         }
     }
 }
