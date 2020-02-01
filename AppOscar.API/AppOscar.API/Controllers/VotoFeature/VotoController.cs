@@ -20,8 +20,8 @@ namespace AppOscar.API.Controllers.VotoFeature
         [HttpGet]
         public async Task<IActionResult> ListVotos([FromQuery] Guid? categoria, [FromQuery] Guid? filme, [FromQuery] string usuario)
         {
-            var hasCategoria = !categoria.HasValue;
-            var hasFilme = !filme.HasValue;
+            var hasCategoria = categoria.HasValue;
+            var hasFilme = filme.HasValue;
             var hasUsuario = !string.IsNullOrWhiteSpace(usuario);
 
             if (hasCategoria)
@@ -39,7 +39,15 @@ namespace AppOscar.API.Controllers.VotoFeature
             }
             else if (hasFilme)
             {
-                throw new NotImplementedException();
+                try
+                {
+                    var result = await mediator.Send(new ListVotosPorFilme(filme.Value));
+                    return Ok(result.Votos);
+                }
+                catch (KeyNotFoundException)
+                {
+                    return NotFound();
+                }
             }
             else if (hasUsuario)
             {
