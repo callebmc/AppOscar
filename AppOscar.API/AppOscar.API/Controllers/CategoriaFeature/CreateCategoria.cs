@@ -18,6 +18,9 @@ namespace AppOscar.API.Controllers.CategoriaFeature
 
         [Required]
         public int PontosCategoria { get; set; }
+
+        [Required]
+        public string CategoriaPhotoUrl { get; set; }
     }
 
     public class CreateCategoriaResult
@@ -43,12 +46,12 @@ namespace AppOscar.API.Controllers.CategoriaFeature
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
-            return CreateCategoriaInternalAsync(request.NomeCategoria, request.PontosCategoria, cancellationToken);
+            return CreateCategoriaInternalAsync(request.NomeCategoria, request.PontosCategoria, request.CategoriaPhotoUrl, cancellationToken);
         }
 
-        private async Task<CreateCategoriaResult> CreateCategoriaInternalAsync(string nomeCategoria, int pontosCategoria, CancellationToken cancellationToken)
+        private async Task<CreateCategoriaResult> CreateCategoriaInternalAsync(string nomeCategoria, int pontosCategoria, string categoriaPhotoUrl, CancellationToken cancellationToken)
         {
-            var novaCategoria = new Categoria { NomeCategoria = nomeCategoria, PontosCategoria = pontosCategoria };
+            var novaCategoria = new Categoria { NomeCategoria = nomeCategoria, PontosCategoria = pontosCategoria, CategoriaPhotoUrl = categoriaPhotoUrl};
             context.Categorias.Add(novaCategoria);
 
             await context.SaveChangesAsync(cancellationToken);

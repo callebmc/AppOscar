@@ -53,7 +53,8 @@ namespace AppOscar.API.Controllers.FilmeFeature
                 .Select(c => new Filme
                 {
                     IdFilme = c.IdFilme,
-                    NomeFilme = c.NomeFilme
+                    NomeFilme = c.NomeFilme,
+                    FilmePhotoUrl = c.FilmePhotoUrl
                 });
 
             return new ListAllFilmeResult(filmesResult);
