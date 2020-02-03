@@ -24,6 +24,11 @@ namespace AppOscar.Models
         /// </summary>
         public virtual ICollection<Participacao> Participantes { get; set; } = new HashSet<Participacao>();
 
+        /// <summary>
+        /// Link para foto do filme
+        /// </summary>
+        public string FilmePhotoUrl { get; set; }
+
 
         /// <summary>
         /// Referência para as Categorias Vencidas pelo filme
