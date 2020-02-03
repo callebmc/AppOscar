@@ -17,6 +17,8 @@ namespace AppOscar.Persistence.Configuration
 
             builder.Property(p => p.PontosCategoria).IsRequired(true);
 
+            builder.Property(p => p.CategoriaPhotoUrl).IsRequired(true);
+
             builder.HasMany(p => p.Participantes)
                 .WithOne(a => a.Categoria)
                 .HasForeignKey(a => a.IdCategoria)
