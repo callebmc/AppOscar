@@ -52,7 +52,8 @@ namespace AppOscar.API.Controllers.CategoriaFeature
             {
                 IdCategoria = c.IdCategoria,
                 NomeCategoria = c.NomeCategoria,
-                PontosCategoria = c.PontosCategoria
+                PontosCategoria = c.PontosCategoria,
+                CategoriaPhotoUrl = c.CategoriaPhotoUrl
             });
 
             return new ListAllCategoriasResult(categoriasResult);

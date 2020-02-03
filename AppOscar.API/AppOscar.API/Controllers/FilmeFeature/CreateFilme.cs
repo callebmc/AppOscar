@@ -14,6 +14,9 @@ namespace AppOscar.API.Controllers.FilmeFeature
     {
         [Required]
         public string NomeFilme { get; set; }
+
+        [Required]
+        public string FilmePhotoUrl { get; set; }
     }
 
     public class CreateFilmeResult
@@ -39,12 +42,12 @@ namespace AppOscar.API.Controllers.FilmeFeature
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
-            return CreateFilmeInternalAsync(request.NomeFilme, cancellationToken);
+            return CreateFilmeInternalAsync(request.NomeFilme, request.FilmePhotoUrl, cancellationToken);
         }
 
-        private async Task<CreateFilmeResult> CreateFilmeInternalAsync(string nomeFilme, CancellationToken cancellationToken)
+        private async Task<CreateFilmeResult> CreateFilmeInternalAsync(string nomeFilme, string filmePhotoUrl, CancellationToken cancellationToken)
         {
-            var novoFilme = new Models.Filme { NomeFilme = nomeFilme };
+            var novoFilme = new Models.Filme { NomeFilme = nomeFilme, FilmePhotoUrl = filmePhotoUrl };
             context.Filmes.Add(novoFilme);
 
             await context.SaveChangesAsync(cancellationToken);
