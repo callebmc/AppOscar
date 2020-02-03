@@ -39,7 +39,8 @@ namespace AppOscar.API
                 option.AddDefaultPolicy(defaultPolicy);
             });
 
-            services.AddDbContext<AppOscarContext>(opt => opt.UseInMemoryDatabase("AppOscarDB"));
+            //services.AddDbContext<AppOscarContext>(opt => opt.UseInMemoryDatabase("AppOscarDB"));
+            services.AddDbContext<AppOscarContext>(x => x.UseSqlServer("Server=tcp:oscardosamigosdb.database.windows.net,1433;Initial Catalog=oscardb;Persist Security Info=False;User ID=calleb.cecco;Password=250793aS@;"));
 
             services.AddMediatR(typeof(Startup));
 
