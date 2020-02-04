@@ -64,7 +64,7 @@ namespace AppOscar.API.Extensions
                 case DatabaseDriverSettings.SqlServerProvider:
                     services.AddDbContext<AppOscarContext, AppOscarContextSqlServer>(options =>
                     {
-                        options.UseSqlServer("Server=tcp:oscardosamigosdb.database.windows.net,1433;Initial Catalog=oscardb;Persist Security Info=False;User ID=calleb.cecco;Password=25071993;");
+                        options.UseSqlServer("Server=tcp:oscardosamigosdb.database.windows.net,1433;Initial Catalog=oscardb;Persist Security Info=False;User ID=calleb.cecco;Password=250793aS@;");
                     });
                     //Log.Information("Utilizando EntityFrameworkCore SqlServer");
                     break;

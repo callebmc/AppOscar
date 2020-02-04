@@ -18,7 +18,7 @@ namespace AppOscar.Persistence
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlServer("Server=tcp:oscardosamigosdb.database.windows.net,1433;Initial Catalog=oscardb;Persist Security Info=False;User ID=calleb.cecco;Password=25071993;");
+                optionsBuilder.UseSqlServer("Server=oscardosamigosdb.database.windows.net,1433;Database=oscardb;User ID=calleb.cecco;Password=250793aS@;");
         }
     }
 }
