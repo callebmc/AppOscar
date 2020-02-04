@@ -65,7 +65,9 @@ namespace AppOscar.API.Controllers.Participacao
                 .Select(f => new Filme  // Garantindo que estamos pegando apenas os campos relevantes para essa query
                 {
                     IdFilme = f.IdFilme,
-                    NomeFilme = f.NomeFilme
+                    NomeFilme = f.NomeFilme,
+                    FilmePhotoUrl = f.FilmePhotoUrl
+
                 });
 
             return new ListFilmesPorCategoriaResult(filmesParticipantes);
