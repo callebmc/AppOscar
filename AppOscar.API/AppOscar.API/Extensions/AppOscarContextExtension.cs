@@ -15,8 +15,8 @@ namespace AppOscar.API.Extensions
     {
         public static void SeedData(this AppOscarContext context, int qtdeRegistros = 10)
         {
-            //if (context.Usuarios.Any())
-             //   return;
+            if (context.Usuarios.Any())
+               return;
 
             var usuariosFake = new Faker<User>("pt_BR")
                 .RuleFor(p => p.nomeUsuario, f => f.Name.FullName())
