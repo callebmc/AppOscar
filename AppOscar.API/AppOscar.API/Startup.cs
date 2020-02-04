@@ -40,7 +40,8 @@ namespace AppOscar.API
             });
 
             //services.AddDbContext<AppOscarContext>(opt => opt.UseInMemoryDatabase("AppOscarDB"));
-            services.AddDbContext<AppOscarContext>(x => x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<AppOscarContext>(x => x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
+            services.AddOscarDbContextNovo(_configuration);
 
             services.AddMediatR(typeof(Startup));
 
