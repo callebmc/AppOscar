@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Linq;
 
 namespace AppOscar.API
 {
@@ -97,6 +98,21 @@ namespace AppOscar.API
             });
 
             app.UseMvc();
+
+            using var scope = app.ApplicationServices.CreateScope();
+            ApplyMigrationsToContext(scope.ServiceProvider.GetRequiredService<AppOscarContext>());
+        }
+
+        private void ApplyMigrationsToContext(AppOscarContext context)
+        {
+            if (!context.Database.IsInMemory())
+            {
+                if (context.Database.GetPendingMigrations().Any())
+                {
+                    //Log.Warning("Foram identificadas Migrations pendentes, novas migrations serão aplicadas");
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }
