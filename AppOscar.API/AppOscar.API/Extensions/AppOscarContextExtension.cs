@@ -25,6 +25,7 @@ namespace AppOscar.API.Extensions
             var filmesFake = new Faker<Filme>("pt_BR")
                 .RuleFor(f => f.IdFilme, f => f.Random.Guid())
                 .RuleFor(f => f.NomeFilme, f => f.Hacker.Phrase())
+                .RuleFor(f => f.FilmePhotoUrl, f => f.Internet.Url())
                 .Generate(qtdeRegistros);
 
             context.Filmes.AddRange(filmesFake);
@@ -33,6 +34,7 @@ namespace AppOscar.API.Extensions
                 .RuleFor(c => c.IdCategoria, f => f.Random.Guid())
                 .RuleFor(c => c.NomeCategoria, f => f.Lorem.Sentence())
                 .RuleFor(c => c.PontosCategoria, f => f.Random.Int(0, 10))
+                .RuleFor(f => f.CategoriaPhotoUrl, f => f.Internet.Url())
                 .Generate(qtdeRegistros);
 
             context.Categorias.AddRange(categoriasFake);

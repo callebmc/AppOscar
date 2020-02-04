@@ -40,7 +40,7 @@ namespace AppOscar.API
             });
 
             //services.AddDbContext<AppOscarContext>(opt => opt.UseInMemoryDatabase("AppOscarDB"));
-            services.AddDbContext<AppOscarContext>(x => x.UseSqlServer("Server=tcp:oscardosamigosdb.database.windows.net,1433;Initial Catalog=oscardb;Persist Security Info=False;User ID=calleb.cecco;Password=250793aS@;"));
+            services.AddDbContext<AppOscarContext>(x => x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMediatR(typeof(Startup));
 
@@ -62,6 +62,7 @@ namespace AppOscar.API
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 })
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+
 
             services.AddSwaggerGen(c =>
             {
