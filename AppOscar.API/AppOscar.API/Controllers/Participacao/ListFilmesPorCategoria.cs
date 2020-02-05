@@ -21,12 +21,12 @@ namespace AppOscar.API.Controllers.Participacao
 
     public class ListFilmesPorCategoriaResult
     {
-        public ListFilmesPorCategoriaResult(IEnumerable<Filme> filmes)
+        public ListFilmesPorCategoriaResult(IEnumerable<Models.Participacao> participacaos)
         {
-            Filmes = filmes ?? throw new ArgumentNullException(nameof(filmes));
+            Participacaos = participacaos ?? throw new ArgumentNullException(nameof(participacaos));
         }
 
-        public IEnumerable<Filme> Filmes { get; }
+        public IEnumerable<Models.Participacao> Participacaos { get; }
     }
 
     public class ListFilmesPorCategoriaHandler : IRequestHandler<ListFilmesPorCategoria, ListFilmesPorCategoriaResult>
@@ -60,17 +60,21 @@ namespace AppOscar.API.Controllers.Participacao
             if (categoria is null)
                 throw new KeyNotFoundException("Categoria não encontrada");
 
-            var filmesParticipantes = categoria.Participantes
-                .Select(p => p.Filme)   // Pegando os filmes para cada Participacao
-                .Select(f => new Filme  // Garantindo que estamos pegando apenas os campos relevantes para essa query
+            var participacaos = categoria.Participantes
+                //.Select(p => p.Id)   // Pegando os filmes para cada Participacao
+                .Select(f => new Models.Participacao  // Garantindo que estamos pegando apenas os campos relevantes para essa query
                 {
+                    Id = f.Id,
+                    IdCategoria = f.IdCategoria,
                     IdFilme = f.IdFilme,
-                    NomeFilme = f.NomeFilme,
-                    FilmePhotoUrl = f.FilmePhotoUrl
-
+                    Filme = new Filme
+                    {
+                        NomeFilme = f.Filme.NomeFilme,
+                        FilmePhotoUrl = f.Filme.FilmePhotoUrl
+                    }
                 });
 
-            return new ListFilmesPorCategoriaResult(filmesParticipantes);
+            return new ListFilmesPorCategoriaResult(participacaos);
         }
     }
 }

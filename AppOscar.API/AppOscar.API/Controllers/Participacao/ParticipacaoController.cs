@@ -45,7 +45,7 @@ namespace AppOscar.API.Controllers.Participacao
             {
                 var result = await mediator.Send(request);
 
-                return new OkObjectResult(result.Filmes);
+                return new OkObjectResult(result.Participacaos);
             }
             catch (KeyNotFoundException)
             {
