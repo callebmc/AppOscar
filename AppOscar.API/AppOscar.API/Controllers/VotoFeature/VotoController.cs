@@ -78,5 +78,24 @@ namespace AppOscar.API.Controllers.VotoFeature
                 return NotFound();
             }
         }
+
+        [HttpGet("checkVoto", Name = "ChecarVoto")]
+        public async Task<IActionResult> CheckVoto([FromQuery] string usuario)
+        {
+            try
+            {
+                var result = await mediator.Send(new CheckVoto(usuario));
+
+                return Ok(result.JaVotou);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+        }
     }
 }
