@@ -33,6 +33,12 @@ namespace AppOscar.Models
         /// </summary>
         public virtual Filme FilmeVencedor { get; set; }
 
+
+        /// <summary>
+        /// Link para foto para representar categoria
+        /// </summary>
+        public string CategoriaPhotoUrl { get; set; }
+
         /// <summary>
         /// Referência para Participantes
         /// </summary>

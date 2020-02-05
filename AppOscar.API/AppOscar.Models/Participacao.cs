@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AppOscar.Models
 {
@@ -31,5 +32,10 @@ namespace AppOscar.Models
         /// Referência para Filmes
         /// </summary>
         public virtual Filme Filme { get; set; }
+
+        /// <summary>
+        /// Votos lançados para esta participação.
+        /// </summary>
+        public virtual ICollection<Voto> Votos { get; set; } = new HashSet<Voto>();
     }
 }

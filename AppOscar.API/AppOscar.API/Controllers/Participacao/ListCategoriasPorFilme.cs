@@ -62,7 +62,8 @@ namespace AppOscar.API.Controllers.Participacao
                 {
                     IdCategoria = c.IdCategoria,
                     NomeCategoria = c.NomeCategoria,
-                    PontosCategoria = c.PontosCategoria
+                    PontosCategoria = c.PontosCategoria,
+                    CategoriaPhotoUrl = c.CategoriaPhotoUrl
                 });
 
             return new ListCategoriasPorFilmeResult(categoriasParticipantes);

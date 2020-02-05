@@ -1,7 +1,6 @@
 ﻿using AppOscar.Models;
 using AppOscar.Persistence.Configuration;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Reflection;
 
 namespace AppOscar.Persistence
@@ -20,12 +19,15 @@ namespace AppOscar.Persistence
 
         public DbSet<Participacao> Participacoes { get; set; }
 
+        public DbSet<Voto> Votos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(UserConfiguration)));
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(FilmeConfiguration)));
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(CategoriaConfiguration)));
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(ParticipacaoConfiguration)));
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(VotoConfiguration)));
             base.OnModelCreating(modelBuilder);
         }
     }
