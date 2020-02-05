@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Linq;
 
 namespace AppOscar.API
 {
@@ -39,7 +40,9 @@ namespace AppOscar.API
                 option.AddDefaultPolicy(defaultPolicy);
             });
 
-            services.AddDbContext<AppOscarContext>(opt => opt.UseInMemoryDatabase("AppOscarDB"));
+            //services.AddDbContext<AppOscarContext>(opt => opt.UseInMemoryDatabase("AppOscarDB"));
+            //services.AddDbContext<AppOscarContext>(x => x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
+            services.AddOscarDbContextNovo(_configuration);
 
             services.AddMediatR(typeof(Startup));
 
@@ -61,6 +64,7 @@ namespace AppOscar.API
                     opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 })
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+
 
             services.AddSwaggerGen(c =>
             {
@@ -94,6 +98,21 @@ namespace AppOscar.API
             });
 
             app.UseMvc();
+
+            using var scope = app.ApplicationServices.CreateScope();
+            ApplyMigrationsToContext(scope.ServiceProvider.GetRequiredService<AppOscarContext>());
+        }
+
+        private void ApplyMigrationsToContext(AppOscarContext context)
+        {
+            if (!context.Database.IsInMemory())
+            {
+                if (context.Database.GetPendingMigrations().Any())
+                {
+                    //Log.Warning("Foram identificadas Migrations pendentes, novas migrations serão aplicadas");
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }
