@@ -79,8 +79,8 @@ namespace AppOscar.API.Controllers.VotoFeature
             }
         }
 
-        [HttpGet("checkVoto", Name = "ChecarVoto")]
-        public async Task<IActionResult> CheckVoto([FromQuery] string usuario)
+        [HttpGet("checkVoto/{usuario}", Name = "ChecarVoto")]
+        public async Task<IActionResult> CheckVoto([FromRoute] string usuario)
         {
             try
             {
