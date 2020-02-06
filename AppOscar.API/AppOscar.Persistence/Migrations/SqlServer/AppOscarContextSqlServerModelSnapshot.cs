@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AppOscar.Persistence.Migrations.SqlServerMigrations
+namespace AppOscar.Persistence.AppOscar.Persistence.SqlServer
 {
     [DbContext(typeof(AppOscarContextSqlServer))]
     partial class AppOscarContextSqlServerModelSnapshot : ModelSnapshot

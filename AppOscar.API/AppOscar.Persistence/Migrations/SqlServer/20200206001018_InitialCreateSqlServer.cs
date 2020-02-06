@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AppOscar.Persistence.Migrations.SqlServerMigrations
+namespace AppOscar.Persistence.AppOscar.Persistence.SqlServer
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateSqlServer : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

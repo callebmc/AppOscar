@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AppOscar.Persistence.Migrations.SqlServerMigrations
+namespace AppOscar.Persistence.AppOscar.Persistence.SqlServer
 {
     [DbContext(typeof(AppOscarContextSqlServer))]
-    [Migration("20200204170619_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200206001018_InitialCreateSqlServer")]
+    partial class InitialCreateSqlServer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
