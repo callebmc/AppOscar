@@ -79,5 +79,30 @@ namespace AppOscar.API.Controllers.Participacao
                 throw;
             }
         }
+
+
+        [HttpGet("by-id/{id}", Name = "ListPor Id")]
+        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Filme>))]  // TODO: O Swagger se perde aqui por causa do ciclico, aparentemente é um bug do SwaggerUi (Javascript, nem o do DOTNET) e esta sendo investigado!
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ListPorId([FromRoute] int id)
+        {
+            ListPorParticipacaoId request = new ListPorParticipacaoId { Id = id };
+
+            try
+            {
+                var result = await mediator.Send(request);
+
+                return new OkObjectResult(result.Participacao);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

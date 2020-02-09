@@ -26,7 +26,7 @@ namespace AppOscar.API.Controllers.AddFeatures
                 DateTime _timeDataOscar = new DateTime(2020, 2, 9, 20, 30, 00);
                 DateTime _timeNow = DateTime.Now;
                 TimeSpan time = _timeDataOscar.Subtract(_timeNow);
-                return new OkObjectResult(time.TotalSeconds);
+                return new OkObjectResult((int)time.TotalSeconds);
             }
             catch
             {
